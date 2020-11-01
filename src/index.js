@@ -1,15 +1,20 @@
 
-require('normalize.css/normalize.css');
-require('./styles/index.scss');
+import './styles/_reset.scss';
+import './styles/styles.scss';
 
-document.addEventListener("DOMContentLoaded", () => {
+const buttons = [...document.querySelectorAll('.color-controls-button')];
+const house = document.getElementById('house');
 
-    const pluginsTriggerElement = document.getElementById('plugins-trigger');
-    const pluginsElement = document.getElementById('plugins');
+buttons.forEach(button => button.addEventListener('click', () => {
+	updateColor(button)																									
+}));
 
-    const pluginsVisibleClass = "splash-overview-plugins__list--visible";
-
-    pluginsTriggerElement.onclick = () => {
-        pluginsElement.classList.toggle(pluginsVisibleClass);
-    }
-});
+function updateColor(button) {
+	const color = button.getAttribute('data-color');
+	
+	house.className = 'house';
+	house.classList.add(color);
+	
+	document.querySelector('.active').classList.remove('active');
+	button.classList.add('active');
+}
